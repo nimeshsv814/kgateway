@@ -18,7 +18,7 @@ spec:
       labels:
         app: flipkart
     spec:
-      container:
+      containers:
         - name: flipkart-app-cont
           image: muralisocial123/flipkart-clone-kuberox:v1.1.0
           ports:

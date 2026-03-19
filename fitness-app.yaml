@@ -18,7 +18,7 @@ spec:
       labels:
         app: fitness
     spec:
-      container:
+      containers:
         - name: fitness-app-cont
           image: muralisocial123/fitness-app:v1.0.1
           ports:

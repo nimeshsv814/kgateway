@@ -18,7 +18,7 @@ spec:
       labels:
         app: eycart
     spec:
-      container:
+      containers:
         - name: eycart-app-cont
           image: muralisocial123/ey-cart:v1.1.0
           ports:
