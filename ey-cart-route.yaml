@@ -10,13 +10,13 @@ spec:
     - matches:
         - path:
             type: PathPrefix
-            value: /
+            value: /cart
       filters:
         - type: URLRewrite
           urlRewrite:
             path:
               type: ReplacePrefixMatch
-              replacePrefixMatch: /
+              replacePrefixMatch: /cart
       backendRefs:
         - name: eycart-svc
           port: 3000
