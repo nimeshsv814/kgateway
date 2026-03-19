@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flower-deploy
+  namespace: flower-ns
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: flower
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 2
+      maxSurge: 2
+  template:
+    metdata:
+      labels:
+        app: flower
+    spec:
+      container:
+        - name: flower-app-cont
+          image: muralisocial123/kyndrl-flower-app:v1.1.0
+          ports:
+            - containerPort: 3015
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: flower-svc
+  namespace: flower-ns
+spec:
+  selector:
+    app: flower
+  ports:
+  - port: 3015
+    targetPort: 3015
+  type: ClusterIP

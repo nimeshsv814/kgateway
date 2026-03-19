@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flipkart-deploy
+  namespace: flipkart-ns
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: flipkart
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 2
+      maxSurge: 2
+  template:
+    metdata:
+      labels:
+        app: flipkart
+    spec:
+      container:
+        - name: flipkart-app-cont
+          image: muralisocial123/flipkart-clone-kuberox:v1.1.0
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: flipkart-svc
+  namespace: flipkart-ns
+spec:
+  selector:
+    app: flipkart
+  ports:
+  - port: 80
+    targetPort: 80
+  type: ClusterIP
